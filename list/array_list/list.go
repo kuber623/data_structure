@@ -39,35 +39,36 @@ func (list *List) Add(values ...interface{}) {
 	}
 }
 
-func (list *List) Remove(index int) bool {
+func (list *List) Remove(index int) {
 	if !list.withinRange(index) {
-		return false
+		return
 	}
 	list.elements[index] = nil
 	copy(list.elements[index:], list.elements[index+1:list.size])
 	list.size--
 	list.shrink()
-	return true
 }
 
-func (list *List) Insert(index int, values ...interface{}) bool {
+func (list *List) Insert(index int, values ...interface{}) {
 	if !list.withinRange(index) {
-		return false
+		if index == list.size {
+			list.Add(values)
+		}
+		return
 	}
+
 	l := len(values)
 	list.growBy(l)
 	copy(list.elements[index+l:list.size+l], list.elements[index:list.size]) // left shift element
 	copy(list.elements[index:], values)
 	list.size += l
-	return true
 }
 
-func (list *List) Set(index int, value interface{}) bool {
+func (list *List) Set(index int, value interface{}) {
 	if !list.withinRange(index) {
-		return false
+		return
 	}
 	list.elements[index] = value
-	return true
 }
 
 func (list *List) Sort(comparator common.Comparator) {

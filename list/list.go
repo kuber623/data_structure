@@ -8,9 +8,9 @@ import (
 type List interface {
 	Get(index int) (interface{}, bool)
 	Add(values ...interface{})
-	Remove(index int) bool
-	Insert(index int, values ...interface{}) bool
-	Set(index int, value interface{}) bool
+	Remove(index int)
+	Insert(index int, values ...interface{})
+	Set(index int, value interface{})
 	Sort(comparator common.Comparator)
 
 	container.Container

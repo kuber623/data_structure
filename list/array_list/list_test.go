@@ -41,45 +41,38 @@ func TestList(t *testing.T) {
 1, 2, 3, 4, 5, 6, 7, 8, 9`)
 		})
 		Convey("remove", func() {
-			ok := list.Remove(7)
+			list.Remove(7)
 			So(list.String(), ShouldResemble, `ArrayList
 1, 2, 3, 4, 5, 6, 7, 9`)
-			So(ok, ShouldBeTrue)
 		})
 		Convey("remove out of range", func() {
-			ok := list.Remove(100)
+			list.Remove(100)
 			So(list.String(), ShouldResemble, `ArrayList
 1, 2, 3, 4, 5, 6, 7, 9`)
-			So(ok, ShouldBeFalse)
 
-			ok = list.Remove(-100)
+			list.Remove(-100)
 			So(list.String(), ShouldResemble, `ArrayList
 1, 2, 3, 4, 5, 6, 7, 9`)
-			So(ok, ShouldBeFalse)
 		})
 		Convey("insert", func() {
-			ok := list.Insert(5, 1, 2, 3, 4)
+			list.Insert(5, 1, 2, 3, 4)
 			So(list.String(), ShouldResemble, `ArrayList
 1, 2, 3, 4, 5, 1, 2, 3, 4, 6, 7, 9`)
-			So(ok, ShouldBeTrue)
 		})
 		Convey("insert out of range", func() {
-			ok := list.Insert(100, 1, 2, 3, 4)
+			list.Insert(100, 1, 2, 3, 4)
 			So(list.String(), ShouldResemble, `ArrayList
 1, 2, 3, 4, 5, 1, 2, 3, 4, 6, 7, 9`)
-			So(ok, ShouldBeFalse)
 		})
 		Convey("set", func() {
-			ok := list.Set(0, 2)
+			list.Set(0, 2)
 			So(list.String(), ShouldResemble, `ArrayList
 2, 2, 3, 4, 5, 1, 2, 3, 4, 6, 7, 9`)
-			So(ok, ShouldBeTrue)
 		})
 		Convey("set out of range", func() {
-			ok := list.Set(100, 3)
+			list.Set(100, 3)
 			So(list.String(), ShouldResemble, `ArrayList
 2, 2, 3, 4, 5, 1, 2, 3, 4, 6, 7, 9`)
-			So(ok, ShouldBeFalse)
 		})
 		Convey("sort", func() {
 			list.Sort(common.NumberComparator)
