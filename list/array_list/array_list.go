@@ -1,6 +1,11 @@
 package array_list
 
-import "github.com/kuber623/data_structure/common"
+import (
+	"fmt"
+	"strings"
+
+	"github.com/kuber623/data_structure/common"
+)
 
 const (
 	growthFactor = float32(2.0)  // growth by 100%
@@ -10,6 +15,13 @@ const (
 type List struct {
 	elements []interface{}
 	size     int
+}
+
+func New(values ...interface{}) *List {
+	return &List{
+		elements: values,
+		size:     len(values),
+	}
 }
 
 func (list *List) Get(index int) (interface{}, bool) {
@@ -42,11 +54,11 @@ func (list *List) Insert(index int, values ...interface{}) bool {
 	if !list.withinRange(index) {
 		return false
 	}
-	n := len(values)
-	list.growBy(n)
-	list.size += n
-	copy(list.elements[:index+n], list.elements[index+1:list.size])
-	copy(list.elements[:index], values)
+	l := len(values)
+	list.growBy(l)
+	copy(list.elements[index+l:list.size+l], list.elements[index:list.size]) // left shift element
+	copy(list.elements[index:], values)
+	list.size += l
 	return true
 }
 
@@ -76,6 +88,16 @@ func (list *List) Clear() {
 
 func (list *List) Values() []interface{} {
 	return list.elements[:list.size+1]
+}
+
+func (list *List) String() string {
+	str := "ArrayList\n"
+	values := make([]string, 0)
+	for _, value := range list.elements[:list.size] {
+		values = append(values, fmt.Sprintf("%v", value))
+	}
+	str += strings.Join(values, ", ")
+	return str
 }
 
 func (list *List) withinRange(index int) bool {
