@@ -8,7 +8,7 @@ import (
 	"github.com/kuber623/data_structure/common"
 )
 
-func TestArrayList(t *testing.T) {
+func TestList(t *testing.T) {
 	var list *List
 	Convey("array list", t, func() {
 		Convey("new", func() {

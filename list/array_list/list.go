@@ -87,7 +87,7 @@ func (list *List) Clear() {
 }
 
 func (list *List) Values() []interface{} {
-	return list.elements[:list.size+1]
+	return list.elements[:list.size]
 }
 
 func (list *List) String() string {
