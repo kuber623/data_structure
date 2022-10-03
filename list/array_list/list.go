@@ -94,7 +94,7 @@ func (list *List) Values() []interface{} {
 func (list *List) String() string {
 	str := "ArrayList\n"
 	values := make([]string, 0)
-	for _, value := range list.elements[:list.size] {
+	for _, value := range list.Values() {
 		values = append(values, fmt.Sprintf("%v", value))
 	}
 	str += strings.Join(values, ", ")

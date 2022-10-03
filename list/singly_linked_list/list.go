@@ -1,4 +1,4 @@
-package single_linked_list
+package singly_linked_list
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ type element struct {
 
 func New(values ...interface{}) *List {
 	list := &List{}
-	list.Add(values)
+	list.Add(values...)
 	return list
 }
 
@@ -82,7 +82,7 @@ func (list *List) Remove(index int) {
 func (list *List) Insert(index int, values ...interface{}) {
 	if !list.withinRange(index) || len(values) == 0 {
 		if index == list.size {
-			list.Add(values)
+			list.Add(values...)
 		}
 		return
 	}
@@ -92,7 +92,7 @@ func (list *List) Insert(index int, values ...interface{}) {
 		before = element
 	}
 
-	sublist := New(values)
+	sublist := New(values...)
 	if element == list.head {
 		sublist.tail.next = list.head
 		list.head = sublist.head
@@ -146,9 +146,9 @@ func (list *List) Values() []interface{} {
 
 func (list *List) String() string {
 	str := "SinglyLinkedList\n"
-	values := make([]string, 0, list.size)
-	for element := list.head; element != nil; element = element.next {
-		values = append(values, fmt.Sprintf("%v", element.value))
+	values := make([]string, 0)
+	for _, value := range list.Values() {
+		values = append(values, fmt.Sprintf("%v", value))
 	}
 	str += strings.Join(values, ", ")
 	return str
